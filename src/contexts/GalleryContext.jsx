@@ -3,54 +3,33 @@ import property from "../data/property";
 
 /**
  * Gallery Context
- * Manages shared state for the photo gallery and lightbox:
- * - Which photo is currently selected
- * - Whether the lightbox is open
- * - Navigation between photos
+ * Manages shared state for the photo gallery and photo tour:
+ * - Whether the Photo Tour overlay is open
+ * - Active room category filter
+ * - Photo list and save state
  */
 
 const GalleryContext = createContext(null);
 
 export const GalleryProvider = ({ children }) => {
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+  const [isPhotoTourOpen, setIsPhotoTourOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(null);
   const [isSaved, setIsSaved] = useState(false);
 
   const photos = property.images;
   const totalPhotos = photos.length;
 
-  /** Open lightbox at a specific photo index */
-  const openLightbox = useCallback((index = 0) => {
-    setCurrentPhotoIndex(index);
-    setIsLightboxOpen(true);
+  /** Open Photo Tour overlay, optionally scrolling to a specific category */
+  const openPhotoTour = useCallback((category = null) => {
+    setActiveCategory(category);
+    setIsPhotoTourOpen(true);
   }, []);
 
-  /** Close lightbox */
-  const closeLightbox = useCallback(() => {
-    setIsLightboxOpen(false);
+  /** Close Photo Tour overlay */
+  const closePhotoTour = useCallback(() => {
+    setIsPhotoTourOpen(false);
+    setActiveCategory(null);
   }, []);
-
-  /** Navigate to next photo */
-  const nextPhoto = useCallback(() => {
-    setCurrentPhotoIndex((prev) =>
-      prev < totalPhotos - 1 ? prev + 1 : prev
-    );
-  }, [totalPhotos]);
-
-  /** Navigate to previous photo */
-  const prevPhoto = useCallback(() => {
-    setCurrentPhotoIndex((prev) => (prev > 0 ? prev - 1 : prev));
-  }, []);
-
-  /** Go to a specific photo by index */
-  const goToPhoto = useCallback(
-    (index) => {
-      if (index >= 0 && index < totalPhotos) {
-        setCurrentPhotoIndex(index);
-      }
-    },
-    [totalPhotos]
-  );
 
   /** Toggle save/favorite state */
   const toggleSave = useCallback(() => {
@@ -61,21 +40,14 @@ export const GalleryProvider = ({ children }) => {
     // State
     photos,
     totalPhotos,
-    currentPhotoIndex,
-    isLightboxOpen,
+    isPhotoTourOpen,
+    activeCategory,
     isSaved,
-    currentPhoto: photos[currentPhotoIndex] || null,
-
-    // Derived
-    isFirstPhoto: currentPhotoIndex === 0,
-    isLastPhoto: currentPhotoIndex === totalPhotos - 1,
 
     // Actions
-    openLightbox,
-    closeLightbox,
-    nextPhoto,
-    prevPhoto,
-    goToPhoto,
+    openPhotoTour,
+    closePhotoTour,
+    setActiveCategory,
     toggleSave,
   };
 

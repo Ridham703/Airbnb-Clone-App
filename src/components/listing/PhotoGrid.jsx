@@ -12,11 +12,11 @@ import { useGallery } from "../../contexts/useGallery";
  * - "Show all photos" button positioned at bottom-right
  * - Hover darkens images with smooth transition and scale zoom
  * - Interactive elements use semantic <button> elements for complete keyboard accessibility
- * - Clicking any image opens Lightbox modal at that photo index
+ * - Clicking hero image, side images, or "Show all photos" opens the full Photo Tour view
  */
 const PhotoGrid = () => {
   const gridImages = getGridImages();
-  const { openLightbox, totalPhotos } = useGallery();
+  const { openPhotoTour, totalPhotos } = useGallery();
 
   if (!gridImages || gridImages.length === 0) return null;
 
@@ -29,9 +29,9 @@ const PhotoGrid = () => {
         {/* Large Hero Image (Left Column - 50% width) */}
         <button
           type="button"
-          onClick={() => openLightbox(0)}
+          onClick={() => openPhotoTour(heroImage.category)}
           className="relative w-full h-full overflow-hidden cursor-pointer group p-0 border-0 bg-transparent text-left rounded-xl md:rounded-r-none md:rounded-l-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:z-10"
-          aria-label={`View photo 1 of ${totalPhotos}: ${heroImage.alt}`}
+          aria-label={`Open photo tour for photo 1 of ${totalPhotos}: ${heroImage.alt}`}
         >
           <img
             src={heroImage.src}
@@ -55,9 +55,9 @@ const PhotoGrid = () => {
               <button
                 key={image.id}
                 type="button"
-                onClick={() => openLightbox(actualIndex)}
+                onClick={() => openPhotoTour(image.category)}
                 className={`relative w-full h-full overflow-hidden cursor-pointer group p-0 border-0 bg-transparent text-left ${cornerClass} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:z-10`}
-                aria-label={`View photo ${actualIndex + 1} of ${totalPhotos}: ${image.alt}`}
+                aria-label={`Open photo tour for photo ${actualIndex + 1} of ${totalPhotos}: ${image.alt}`}
               >
                 <img
                   src={image.src}
@@ -75,6 +75,9 @@ const PhotoGrid = () => {
       {/* Floating "Show all photos" Button at Bottom Right */}
       <Link
         to={ROUTES.PHOTOS}
+        onClick={() => {
+          openPhotoTour();
+        }}
         className="absolute bottom-4 right-4 md:bottom-6 md:right-6 inline-flex items-center gap-2 bg-white text-text-primary 
           px-3.5 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-semibold shadow-md border border-text-primary 
           hover:bg-bg-secondary hover:shadow-lg transition-all duration-200 active:scale-95 z-10 

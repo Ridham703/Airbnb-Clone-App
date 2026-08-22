@@ -17,8 +17,8 @@ const App = () => {
       <BrowserRouter>
         <div className="min-h-screen flex flex-col bg-white text-text-primary">
           <Routes>
-            {/* Photo Tour route */}
-            <Route path={ROUTES.PHOTOS} element={<PhotoTour />} />
+            {/* Standalone Photo Tour route */}
+            <Route path={ROUTES.PHOTOS} element={<PhotoTour isOverlay={false} />} />
 
             {/* Listing Page route with shared Header and Footer */}
             <Route
@@ -32,6 +32,9 @@ const App = () => {
               }
             />
           </Routes>
+
+          {/* Global Full-Viewport PhotoTour Modal Overlay */}
+          <PhotoTour isOverlay={true} />
 
           {/* Global Lightbox Modal Overlay */}
           <Lightbox />

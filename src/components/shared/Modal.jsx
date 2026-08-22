@@ -49,14 +49,14 @@ const Modal = ({
         aria-hidden="true"
       />
 
-      {/* Modal Content */}
+      {/* Modal Content Container */}
       <div
         ref={trapRef}
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className={`relative bg-white rounded-xl shadow-dropdown w-full ${sizes[size]} 
-          max-h-[85vh] overflow-y-auto animate-[scaleIn_200ms_ease]
+        className={`relative bg-white rounded-2xl shadow-dropdown w-full ${sizes[size]} 
+          max-h-[85vh] overflow-y-auto animate-[slideUp_220ms_cubic-bezier(0.16,1,0.3,1)]
           ${className}`}
       >
         {/* Header */}

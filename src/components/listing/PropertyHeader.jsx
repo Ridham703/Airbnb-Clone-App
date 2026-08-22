@@ -56,8 +56,8 @@ const PropertyHeader = () => {
           <button
             type="button"
             onClick={handleShare}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-bg-secondary transition-colors underline font-semibold text-sm cursor-pointer focus-visible:outline-2 focus-visible:outline-airbnb-rausch"
-            aria-label="Share listing"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-bg-secondary transition-all duration-200 underline font-semibold text-sm cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+            aria-label="Share listing link"
           >
             <svg viewBox="0 0 32 32" className="w-4 h-4 fill-none stroke-current stroke-[2.5]" aria-hidden="true">
               <path d="M27 18v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-9M16 3v19M9 10l7-7 7 7" />
@@ -65,24 +65,26 @@ const PropertyHeader = () => {
             <span>Share</span>
           </button>
 
-          {/* Share Toast */}
+          {/* Share Toast Notification */}
           {showToast && (
-            <div className="absolute top-10 right-16 bg-text-primary text-white text-xs px-3 py-1.5 rounded-md shadow-lg z-20 whitespace-nowrap animate-[fadeIn_150ms_ease]">
+            <div className="absolute top-10 right-16 bg-text-primary text-white text-xs font-medium px-3.5 py-2 rounded-lg shadow-lg z-20 whitespace-nowrap animate-[slideUp_200ms_ease-out]">
               Link copied to clipboard!
             </div>
           )}
 
-          {/* Save Button */}
+          {/* Save / Favorite Button */}
           <button
             type="button"
             onClick={() => setIsSaved((prev) => !prev)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-bg-secondary transition-colors underline font-semibold text-sm cursor-pointer focus-visible:outline-2 focus-visible:outline-airbnb-rausch"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-bg-secondary transition-all duration-200 underline font-semibold text-sm cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
             aria-label={isSaved ? "Remove from wishlist" : "Save to wishlist"}
           >
             <svg
               viewBox="0 0 32 32"
-              className={`w-4 h-4 transition-transform duration-200 ${
-                isSaved ? "fill-airbnb-rausch stroke-airbnb-rausch scale-110" : "fill-none stroke-current stroke-[2.5]"
+              className={`w-4 h-4 transition-all duration-300 ${
+                isSaved
+                  ? "fill-airbnb-rausch stroke-airbnb-rausch animate-[heartPop_300ms_ease-in-out]"
+                  : "fill-none stroke-current stroke-[2.5]"
               }`}
               aria-hidden="true"
             >

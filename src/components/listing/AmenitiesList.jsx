@@ -54,7 +54,8 @@ const AmenitiesList = () => {
         type="button"
         onClick={() => setIsModalOpen(true)}
         className="mt-8 border border-text-primary text-text-primary px-6 py-3 rounded-lg font-semibold text-base
-          hover:bg-bg-secondary transition-colors cursor-pointer active:scale-95"
+          hover:bg-bg-secondary hover:shadow-sm active:scale-95 transition-all duration-200 cursor-pointer
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
       >
         Show all {property.amenities.length} amenities
       </button>

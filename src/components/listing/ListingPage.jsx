@@ -43,7 +43,7 @@ const ListingPage = () => {
         </div>
 
         {/* Right Column: Sticky Booking Sidebar Card */}
-        <div className="sticky top-28">
+        <div className="w-full">
           <BookingCard />
         </div>
       </div>

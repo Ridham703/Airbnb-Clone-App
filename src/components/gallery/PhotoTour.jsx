@@ -55,26 +55,26 @@ const PhotoTour = () => {
                   const globalIdx = getImageIndex(photo.id);
 
                   return (
-                    <div
+                    <button
                       key={photo.id}
+                      type="button"
                       onClick={() => openLightbox(globalIdx)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => e.key === "Enter" && openLightbox(globalIdx)}
-                      className="group relative rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 bg-bg-secondary"
-                      aria-label={`Open photo viewer for ${photo.alt}`}
+                      className="group relative w-full text-left p-0 border-0 rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 bg-bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                      aria-label={`Open photo viewer for photo ${globalIdx + 1}: ${photo.alt}`}
                     >
-                      <img
-                        src={photo.src}
-                        alt={photo.alt}
-                        className="w-full h-auto object-cover max-h-[600px] group-hover:scale-[1.01] transition-transform duration-300"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={photo.src}
+                          alt={photo.alt}
+                          className="w-full h-auto object-cover max-h-[600px] group-hover:scale-[1.01] transition-transform duration-300"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
+                      </div>
                       <p className="p-3 text-xs text-text-secondary bg-white border-t border-border-light">
                         {photo.alt}
                       </p>
-                    </div>
+                    </button>
                   );
                 })}
               </div>

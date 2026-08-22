@@ -24,10 +24,11 @@ const useImagePreloader = (images, currentIndex, preloadCount = 1) => {
     }
 
     const preloadedImages = preloadIndices
-      .filter((idx) => images[idx]?.url)
-      .map((idx) => {
+      .map((idx) => images[idx]?.src || images[idx]?.url)
+      .filter(Boolean)
+      .map((src) => {
         const img = new Image();
-        img.src = images[idx].url;
+        img.src = src;
         return img;
       });
 

@@ -16,7 +16,7 @@ import { useGallery } from "../../contexts/useGallery";
  */
 const PhotoGrid = () => {
   const gridImages = getGridImages();
-  const { openPhotoTour, totalPhotos } = useGallery();
+  const { openLightbox, openPhotoTour, totalPhotos } = useGallery();
 
   if (!gridImages || gridImages.length === 0) return null;
 
@@ -29,9 +29,9 @@ const PhotoGrid = () => {
         {/* Large Hero Image (Left Column - 50% width) */}
         <button
           type="button"
-          onClick={() => openPhotoTour(heroImage.category)}
+          onClick={() => openLightbox(0)}
           className="relative w-full h-full overflow-hidden cursor-pointer group p-0 border-0 bg-transparent text-left rounded-xl md:rounded-r-none md:rounded-l-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:z-10"
-          aria-label={`Open photo tour for photo 1 of ${totalPhotos}: ${heroImage.alt}`}
+          aria-label={`View photo 1 of ${totalPhotos}: ${heroImage.alt}`}
         >
           <img
             src={heroImage.src}
@@ -55,9 +55,9 @@ const PhotoGrid = () => {
               <button
                 key={image.id}
                 type="button"
-                onClick={() => openPhotoTour(image.category)}
+                onClick={() => openLightbox(actualIndex)}
                 className={`relative w-full h-full overflow-hidden cursor-pointer group p-0 border-0 bg-transparent text-left ${cornerClass} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:z-10`}
-                aria-label={`Open photo tour for photo ${actualIndex + 1} of ${totalPhotos}: ${image.alt}`}
+                aria-label={`View photo ${actualIndex + 1} of ${totalPhotos}: ${image.alt}`}
               >
                 <img
                   src={image.src}

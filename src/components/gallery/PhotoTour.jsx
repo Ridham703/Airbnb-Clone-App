@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES, KEYS } from "../../utils/constants";
-import { getImagesByCategory, getActiveCategories } from "../../data/property";
+import { getImagesByCategory, getActiveCategories, getImageIndex } from "../../data/property";
 import { useGallery } from "../../contexts/useGallery";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import useTrapFocus from "../../hooks/useTrapFocus";
@@ -15,7 +15,7 @@ import useTrapFocus from "../../hooks/useTrapFocus";
  * - Accessible keyboard navigation with focus trapping and Escape key handler.
  */
 const PhotoTour = ({ isOverlay = false, onClose = null }) => {
-  const { isPhotoTourOpen, closePhotoTour, activeCategory, setActiveCategory, totalPhotos } = useGallery();
+  const { isPhotoTourOpen, closePhotoTour, openLightbox, activeCategory, setActiveCategory, totalPhotos } = useGallery();
   const photosByCategory = getImagesByCategory();
   const categories = getActiveCategories();
   const navigate = useNavigate();
@@ -185,24 +185,32 @@ const PhotoTour = ({ isOverlay = false, onClose = null }) => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {photos.map((photo, idx) => (
-                    <div
-                      key={photo.id}
-                      className="group relative rounded-xl overflow-hidden bg-bg-secondary shadow-sm hover:shadow-md transition-all duration-300 border border-border-light/60 flex flex-col"
-                    >
-                      <div className="relative overflow-hidden aspect-[4/3] bg-gray-100">
-                        <img
-                          src={photo.src}
-                          alt={photo.alt}
-                          className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
-                          loading={idx < 4 ? "eager" : "lazy"}
-                        />
-                      </div>
-                      <p className="p-3 text-xs sm:text-sm text-text-secondary bg-white border-t border-border-light font-medium">
-                        {photo.alt}
-                      </p>
-                    </div>
-                  ))}
+                  {photos.map((photo, idx) => {
+                    const globalIdx = getImageIndex(photo.id);
+
+                    return (
+                      <button
+                        key={photo.id}
+                        type="button"
+                        onClick={() => openLightbox(globalIdx)}
+                        className="group relative w-full text-left p-0 border border-border-light/60 rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 bg-bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 flex flex-col"
+                        aria-label={`Open photo viewer for photo ${globalIdx + 1}: ${photo.alt}`}
+                      >
+                        <div className="relative overflow-hidden aspect-[4/3] bg-gray-100 w-full">
+                          <img
+                            src={photo.src}
+                            alt={photo.alt}
+                            className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
+                            loading={idx < 4 ? "eager" : "lazy"}
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
+                        </div>
+                        <p className="p-3 text-xs sm:text-sm text-text-secondary bg-white border-t border-border-light font-medium w-full">
+                          {photo.alt}
+                        </p>
+                      </button>
+                    );
+                  })}
                 </div>
               </section>
             );

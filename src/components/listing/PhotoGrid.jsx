@@ -25,7 +25,7 @@ const PhotoGrid = () => {
 
   return (
     <section aria-label="Property photo gallery" className="relative mt-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 rounded-xl overflow-hidden h-[320px] sm:h-[380px] md:h-[420px] lg:h-[460px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 rounded-xl overflow-hidden h-[320px] sm:h-[380px] md:h-[420px] lg:h-[460px] xl:h-[480px]">
         {/* Large Hero Image (Left Column - 50% width) */}
         <button
           type="button"

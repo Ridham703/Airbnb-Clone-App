@@ -2,8 +2,8 @@ import PropertyHeader from "./PropertyHeader";
 import PhotoGrid from "./PhotoGrid";
 import PropertyOverview from "./PropertyOverview";
 import ListingHighlights from "./ListingHighlights";
-import Description from "./Description";
-import Amenities from "./Amenities";
+import ListingDescription from "./ListingDescription";
+import AmenitiesList from "./AmenitiesList";
 import ReviewsSummary from "./ReviewsSummary";
 import LocationMap from "./LocationMap";
 import HostSection from "./HostSection";
@@ -15,7 +15,7 @@ import BookingCard from "./BookingCard";
  * - PropertyHeader (Title, rating, location, share/save)
  * - PhotoGrid (5-image Bento layout)
  * - 2-Column Content Grid:
- *     Left (max-w-[650px]): PropertyOverview, Highlights, Description, Amenities, ReviewsSummary, LocationMap, HostSection
+ *     Left (max-w-[650px]): PropertyOverview, Highlights, ListingDescription, AmenitiesList, ReviewsSummary, LocationMap, HostSection
  *     Right (w-[370px]): Sticky BookingCard
  */
 const ListingPage = () => {
@@ -33,8 +33,8 @@ const ListingPage = () => {
         <div className="min-w-0">
           <PropertyOverview />
           <ListingHighlights />
-          <Description />
-          <Amenities />
+          <ListingDescription />
+          <AmenitiesList />
           <ReviewsSummary />
           <div id="location-section">
             <LocationMap />

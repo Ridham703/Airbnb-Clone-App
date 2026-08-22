@@ -1,0 +1,85 @@
+---
+description: Project conventions, accessibility standards, visual fidelity rules, and AI agent workflow guidelines for the Airbnb Clone application.
+globs: **/*
+alwaysApply: true
+---
+
+# Airbnb Clone — Project Guidance & AI Rules
+
+This configuration provides lightweight, project-specific rules for AI agents and developer tools working on this codebase.
+
+---
+
+## 1. Core Principles & Independent Implementation
+- **No Source Code Copying**: All code must be independently written from scratch using React, Vite, and Vanilla/Tailwind CSS. Reference designs/specs are visual and behavioral targets only.
+- **Audit Before Modifying**: Before editing any existing file, always view the complete file content to understand established patterns, props, and schema imports.
+- **Ask for Confirmation**: Always ask the user for confirmation before performing breaking architectural changes or deleting existing code files.
+
+---
+
+## 2. React Conventions
+- **Functional Components**: Use arrow function components (`const ComponentName = () => { ... }`).
+- **Hooks Rules**: Follow React 19 hook guidelines. Never call `setState` synchronously inside a `useEffect` body if the state can be derived during rendering.
+- **Prop Interfaces**: Keep component interfaces clean and explicit. Provide sensible default prop values.
+- **Context Usage**: Consume shared state via centralized custom hooks (e.g. `useGallery()`). Do not instantiate redundant local state when global context exists.
+
+---
+
+## 3. JavaScript Conventions
+- **ES Module Syntax**: Use clean ES6+ imports and exports (`import ... from ...`, `export const ...`, `export default ...`).
+- **Centralized Data**: `src/data/property.js` is the SINGLE SOURCE OF TRUTH. Never hardcode property pricing, images, or host details directly inside components.
+- **Utility Functions**: Keep business logic (total pricing math, subsets, categorization) inside pure helper functions exported from `property.js` or `src/utils/`.
+
+---
+
+## 4. Component Organization
+```
+src/
+├── components/
+│   ├── gallery/       # Full-viewport Photo Tour gallery view
+│   ├── layout/        # Header, Footer, and page shell layouts
+│   ├── lightbox/      # Single-photo Lightbox viewer overlay
+│   ├── listing/       # Listing page sections (PhotoGrid, BookingCard, HostSection, etc.)
+│   └── shared/        # Atomic primitives (Button, IconButton, Avatar, StarRating, Modal)
+├── contexts/          # React Context providers and custom hooks
+├── hooks/             # Shared custom hooks (useTrapFocus, useLockBodyScroll, etc.)
+├── data/              # Centralized property dataset
+└── utils/             # Constants and helper utilities
+```
+
+---
+
+## 5. Accessibility (a11y) Rules
+- **Semantic Buttons**: Interactive elements must use native `<button type="button">`, `<a href="...">`, or React Router `<Link>`.
+- **Keyboard Navigation**: All interactive controls must respond to `Enter`, `Space`, `Tab`, `ArrowLeft`, `ArrowRight`, and `Escape`.
+- **Focus Indicators**: Enforce crisp focus ring styling (`focus-visible:ring-2 focus-visible:ring-black` or `focus-visible:ring-white`).
+- **Modal Controls**: Modal overlays must implement `role="dialog"`, `aria-modal="true"`, focus trapping (`useTrapFocus`), and background scroll locking (`useLockBodyScroll`).
+- **Screen Readers**: Provide descriptive `alt` text on non-decorative images and `aria-hidden="true"` on decorative icons.
+- **Heading Hierarchy**: Maintain logical document heading outline (`h1` -> `h2` -> `h3`) without skipping levels.
+
+---
+
+## 6. Visual Fidelity Rules
+- **Desktop Specification**: Desktop layout is the primary target. Maintain an `1120px` max content width container.
+- **Photo Bento Grid**: 1 Hero image (50% width) + 4 side images in 2x2 grid (50% width) with `12px` outer radius and `8px` gaps.
+- **Typography & Colors**:
+  - Primary text: `#222222`
+  - Secondary text: `#717171`
+  - Accent color: `#FF385C` (Airbnb Rausch)
+  - Borders: `#EBEBEB` (light), `#DDDDDD` (default), `#B0B0B0` (dark)
+- **Subtle Micro-Interactions**: Use hardware-accelerated CSS transitions/keyframes (`heartPop`, `slideUp`, `scaleIn`). Avoid over-animating.
+
+---
+
+## 7. Testing & Build Requirements
+- **Verification**: Every code change must be verified by running:
+  - `npm run lint` (ESLint rule check)
+  - `npm run build` (Vite production bundle compilation)
+- **Zero Errors**: Never declare a task complete if linting or build errors remain.
+
+---
+
+## 8. Performance Requirements
+- **Code-Splitting**: Heavy overlay views (`PhotoTour`, `Lightbox`) must be code-split using `React.lazy` and `Suspense`.
+- **Image Optimization**: High-priority LCP hero images use `loading="eager"`; secondary images use `loading="lazy"`.
+- **Zero External UI Dependencies**: Rely on native Tailwind CSS utilities and React state instead of heavy third-party UI libraries.

@@ -1,0 +1,10 @@
+# Airbnb Clone — AI Coding Rules
+
+- **Independent Code**: Never copy reference source code. All components must be written independently.
+- **Audit Before Modifying**: Inspect existing files and imports before making changes.
+- **Ask for Confirmation**: Solicit user confirmation before breaking architectural edits or deleting files.
+- **React & JavaScript**: Use React 19 arrow components, centralized property data (`src/data/property.js`), and ES modules.
+- **Accessibility**: Use semantic `<button type="button">`, WCAG contrast (`#222222` on `#FFFFFF`), `:focus-visible` rings, `aria-label` tags, and modal focus traps.
+- **Visual Fidelity**: Target desktop `1120px` max-width layout, 5-image bento photo grid (`12px` radius, `8px` gap), and `#FF385C` brand accents.
+- **Testing & Verification**: Run `npm run lint` and `npm run build` after changes.
+- **Performance**: Code-split `PhotoTour` and `Lightbox` overlays with `React.lazy()` and `Suspense`.

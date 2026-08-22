@@ -11,6 +11,7 @@ const ListingDescription = () => {
 
   return (
     <section aria-label="Property description" className="py-6 border-b border-border-light">
+      <h2 className="sr-only">About this space</h2>
       <div className={`space-y-4 text-text-primary text-base leading-relaxed ${!isExpanded ? "line-clamp-4" : ""}`}>
         {paragraphs.map((p, idx) => (
           <p key={idx}>{p}</p>
@@ -20,7 +21,8 @@ const ListingDescription = () => {
       <button
         type="button"
         onClick={() => setIsExpanded((prev) => !prev)}
-        className="mt-4 inline-flex items-center gap-1 font-semibold underline text-text-primary hover:text-text-secondary cursor-pointer"
+        aria-expanded={isExpanded}
+        className="mt-4 inline-flex items-center gap-1 font-semibold underline text-text-primary hover:text-text-secondary cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-sm"
       >
         <span>{isExpanded ? "Show less" : "Show more"}</span>
         <svg

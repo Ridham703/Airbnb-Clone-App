@@ -35,6 +35,7 @@ const HighlightIcon = ({ icon }) => {
 const ListingHighlights = () => {
   return (
     <section aria-label="Key highlights" className="py-6 border-b border-border-light">
+      <h2 className="sr-only">Listing highlights</h2>
       <div className="space-y-6">
         {property.highlights.map((highlight) => (
           <div key={highlight.id} className="flex gap-4 items-start">
